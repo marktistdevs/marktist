@@ -126,7 +126,13 @@ contactForm.addEventListener('submit', function(e) {
         showFormMessage('Form method is not POST. Please contact the site administrator.', 'error');
         return;
     }
-    fetch(form.action, {
+    // Web3Forms endpoint
+    const endpoint = 'https://api.web3forms.com/submit';
+    // Add honeypot field if not present
+    if (!formData.has('botcheck')) {
+        formData.append('botcheck', '');
+    }
+    fetch(endpoint, {
         method: 'POST',
         body: formData,
         headers: {
@@ -134,7 +140,13 @@ contactForm.addEventListener('submit', function(e) {
         }
     })
     .then(async response => {
-        if (response.ok) {
+        let data;
+        try {
+            data = await response.json();
+        } catch (err) {
+            throw new Error('Invalid response from server.');
+        }
+        if (response.ok && data.success) {
             submitBtn.innerHTML = '<i class="fas fa-check"></i> Application Sent!';
             submitBtn.style.background = '#28a745';
             showFormMessage(`Thank you, ${name}! Your application has been received. We'll get back to you soon.`, 'success');
@@ -145,26 +157,11 @@ contactForm.addEventListener('submit', function(e) {
                 submitBtn.disabled = false;
             }, 3000);
         } else {
-            let errorMsg = `Error: HTTP ${response.status} ${response.statusText}. `;
-            let details = '';
-            try {
-                const data = await response.json();
-                if (data && data.errors && data.errors.length > 0) {
-                    details = data.errors.map(e => e.message).join(' ');
-                } else if (data && data.message) {
-                    details = data.message;
-                }
-            } catch (err) {
-                try {
-                    const text = await response.text();
-                    if (text) {
-                        details = text;
-                    }
-                } catch (e) {
-                    details = '(No further error details)';
-                }
+            let errorMsg = 'Oops! Something went wrong. Please try again.';
+            if (data && data.message) {
+                errorMsg = data.message;
             }
-            throw new Error(errorMsg + details);
+            throw new Error(errorMsg);
         }
     })
     .catch(error => {
