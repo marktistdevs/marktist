@@ -332,6 +332,8 @@
                 
                 <form class="contact-form fade-in" id="contactForm">
                     <form class="contact-form fade-in" id="contactForm" action="https://formspree.io/f/xdkdrgya" method="POST" novalidate>
+                        <!-- Web3Forms Access Key -->
+                        <input type="hidden" name="access_key" value="91a98a21-f015-46e0-8651-6b8a04a75fbd">
                         <div class="form-group">
                             <label for="name">Full Name</label>
                             <input type="text" id="name" name="name" required>
@@ -348,6 +350,8 @@
                             <label for="message">Tell us about yourself</label>
                             <textarea id="message" name="message" placeholder="Share your experience and why you'd like to join MARKTIST..." required></textarea>
                         </div>
+                        <!-- Honeypot Spam Protection -->
+                        <input type="checkbox" name="botcheck" class="hidden" style="display: none;">
                         <button type="submit" class="submit-btn" id="submitBtn">
                             <i class="fas fa-paper-plane"></i>
                             Send Application
