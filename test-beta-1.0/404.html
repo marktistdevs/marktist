@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Section Not Unlocked - MARKTIST</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+        <style>
+            body {
+                min-height: 100vh;
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                background: var(--bg, #fefce9);
+                color: #131414;
+                font-family: 'Clash Display', 'League Spartan', Arial, sans-serif;
+                overflow: hidden;
+            }
+            .lock-icon {
+                font-size: 5rem;
+                color: #E73364;
+                margin-bottom: 1rem;
+                animation: bounce 1.2s infinite alternate cubic-bezier(.5,1.8,.5,1);
+                filter: drop-shadow(0 4px 16px #e7336460);
+                position: relative;
+            }
+            .lock-icon .fa-lock {
+                animation: shimmer 2s infinite linear;
+            }
+            @keyframes bounce {
+                0% { transform: translateY(0) scale(1); }
+                60% { transform: translateY(-18px) scale(1.08); }
+                100% { transform: translateY(0) scale(1); }
+            }
+            @keyframes shimmer {
+                0% { filter: brightness(1); }
+                50% { filter: brightness(1.5) drop-shadow(0 0 8px #fff3); }
+                100% { filter: brightness(1); }
+            }
+            .not-unlocked {
+                text-align: center;
+                margin-bottom: 2rem;
+                opacity: 0;
+                animation: fadeInUp 1.2s 0.5s forwards;
+            }
+            .not-unlocked h1 {
+                font-size: 2.2rem;
+                margin-bottom: 0.5rem;
+                letter-spacing: 1px;
+                background: linear-gradient(90deg, #E73364 40%, #b91c4a 100%);
+                -webkit-background-clip: text;
+                -webkit-text-fill-color: transparent;
+                background-clip: text;
+            }
+            .not-unlocked p {
+                font-size: 1.2rem;
+                color: #b91c4a;
+                letter-spacing: 0.5px;
+            }
+            @keyframes fadeInUp {
+                0% { opacity: 0; transform: translateY(30px); }
+                100% { opacity: 1; transform: translateY(0); }
+            }
+            .cta-links {
+                display: flex;
+                gap: 1.5rem;
+                justify-content: center;
+                opacity: 0;
+                animation: fadeInUp 1.2s 1.2s forwards;
+            }
+            .cta-link {
+                background: #E73364;
+                color: #FEFCE9;
+                padding: 0.75rem 2rem;
+                border-radius: 30px;
+                text-decoration: none;
+                font-weight: 600;
+                font-size: 1.1rem;
+                box-shadow: 0 2px 16px #e7336420;
+                transition: background 0.2s, transform 0.2s, box-shadow 0.2s;
+                position: relative;
+                overflow: hidden;
+            }
+            .cta-link:hover {
+                background: #b91c4a;
+                transform: scale(1.07) translateY(-2px) rotate(-1deg);
+                box-shadow: 0 6px 24px #e7336440;
+            }
+            .cta-link i {
+                margin-right: 0.5rem;
+                animation: iconPop 1.2s infinite alternate;
+            }
+            @keyframes iconPop {
+                0% { transform: scale(1) rotate(0deg); }
+                100% { transform: scale(1.18) rotate(-10deg); }
+            }
+        </style>
+</head>
+<body>
+    <div class="lock-icon">
+        <i class="fas fa-lock"></i>
+    </div>
+    <div class="not-unlocked">
+        <h1>Section not Unlocked yet</h1>
+        <p>Comeback later</p>
+    </div>
+    <div class="cta-links">
+        <a href="index.html" class="cta-link"><i class="fas fa-home"></i> Home</a>
+        <a href="index.html#contact" class="cta-link"><i class="fas fa-envelope"></i> Contact</a>
+    </div>
+        <script>
+            // Add a little confetti effect for fun
+            function createConfettiPiece() {
+                const confetti = document.createElement('div');
+                confetti.style.position = 'fixed';
+                confetti.style.top = '-20px';
+                confetti.style.left = Math.random() * 100 + 'vw';
+                confetti.style.width = '10px';
+                confetti.style.height = '10px';
+                confetti.style.background = `hsl(${Math.random()*360},80%,70%)`;
+                confetti.style.borderRadius = '50%';
+                confetti.style.opacity = 0.7 + Math.random()*0.3;
+                confetti.style.zIndex = 999;
+                confetti.style.pointerEvents = 'none';
+                confetti.style.transition = 'transform 2.5s cubic-bezier(.2,.8,.2,1), opacity 2.5s';
+                document.body.appendChild(confetti);
+                setTimeout(() => {
+                    confetti.style.transform = `translateY(${window.innerHeight + 40}px) rotate(${Math.random()*360}deg)`;
+                    confetti.style.opacity = 0;
+                }, 10);
+                setTimeout(() => confetti.remove(), 2600);
+            }
+            setInterval(() => {
+                if (document.hasFocus()) createConfettiPiece();
+            }, 400);
+        </script>
+</body>
+</html>
