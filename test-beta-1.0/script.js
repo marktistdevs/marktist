@@ -2,7 +2,7 @@
 const menuToggle = document.getElementById('menuToggle');
 const navLinks = document.getElementById('navLinks');
 const header = document.getElementById('header');
-const contactForm = document.getElementById('contactForm');
+const contactForm = document.querySelector('form#contactForm');
 const submitBtn = document.getElementById('submitBtn');
 const heroTitle = document.getElementById('heroTitle');
 
@@ -121,8 +121,8 @@ contactForm.addEventListener('submit', function(e) {
     submitBtn.disabled = true;
 
     // Prepare data for Formspree
-    // Ensure method is POST
-    if (form.method.toUpperCase() !== 'POST') {
+    // Ensure method is POST (HTML attribute check)
+    if (form.getAttribute('method') && form.getAttribute('method').toUpperCase() !== 'POST') {
         showFormMessage('Form method is not POST. Please contact the site administrator.', 'error');
         return;
     }
