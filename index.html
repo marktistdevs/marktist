@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Beta Site - MARKTIST</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        body {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            background: var(--bg, #fefce9);
+            color: #131414;
+            font-family: 'Clash Display', 'League Spartan', Arial, sans-serif;
+        }
+        .beta-icon {
+            font-size: 4rem;
+            color: #E73364;
+            margin-bottom: 1rem;
+            animation: pulse 1.5s infinite alternate;
+        }
+        @keyframes pulse {
+            0% { transform: scale(1); filter: brightness(1); }
+            100% { transform: scale(1.12); filter: brightness(1.2); }
+        }
+        .beta-message {
+            text-align: center;
+            font-size: 1.5rem;
+            margin-bottom: 2rem;
+            opacity: 0;
+            animation: fadeInUp 1.2s 0.3s forwards;
+        }
+        @keyframes fadeInUp {
+            0% { opacity: 0; transform: translateY(30px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body>
+    <div class="beta-icon">
+        <i class="fas fa-flask"></i>
+    </div>
+    <div class="beta-message">
+        <h1>This is a <span style="color:#E73364">Beta</span> site</h1>
+        <p>Please comeback later for the full experience!</p>
+    </div>
+</body>
+</html>
