@@ -91,56 +91,77 @@ document.querySelectorAll('.fade-in').forEach(el => {
 });
 
 // Form submission with enhanced validation and feedback
+
 contactForm.addEventListener('submit', function(e) {
     e.preventDefault();
-    
-    // Get form data
-    const formData = new FormData(this);
+    const form = this;
+    const formData = new FormData(form);
     const name = formData.get('name').trim();
     const email = formData.get('email').trim();
     const position = formData.get('position').trim();
     const message = formData.get('message').trim();
-    
+
     // Enhanced validation
     if (!name || name.length < 2) {
         showFormMessage('Please enter a valid name (at least 2 characters).', 'error');
         return;
     }
-    
     if (!email || !isValidEmail(email)) {
         showFormMessage('Please enter a valid email address.', 'error');
         return;
     }
-    
     if (!message || message.length < 10) {
         showFormMessage('Please tell us more about yourself (at least 10 characters).', 'error');
         return;
     }
-    
+
     // Show loading state
     const originalText = submitBtn.innerHTML;
     submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Sending...';
     submitBtn.disabled = true;
-    
-    // Simulate API call
-    setTimeout(() => {
-        // Success state
-        submitBtn.innerHTML = '<i class="fas fa-check"></i> Application Sent!';
-        submitBtn.style.background = '#28a745';
-        
-        // Show success message
-        showFormMessage(`Thank you, ${name}! Your application has been received. We'll get back to you soon.`, 'success');
-        
-        // Reset form
-        this.reset();
-        
-        // Reset button after 3 seconds
+
+    // Prepare data for Formspree
+    fetch(form.action, {
+        method: 'POST',
+        body: formData,
+        headers: {
+            'Accept': 'application/json'
+        }
+    })
+    .then(async response => {
+        if (response.ok) {
+            submitBtn.innerHTML = '<i class="fas fa-check"></i> Application Sent!';
+            submitBtn.style.background = '#28a745';
+            showFormMessage(`Thank you, ${name}! Your application has been received. We'll get back to you soon.`, 'success');
+            form.reset();
+            setTimeout(() => {
+                submitBtn.innerHTML = originalText;
+                submitBtn.style.background = '#E73364';
+                submitBtn.disabled = false;
+            }, 3000);
+        } else {
+            let errorMsg = 'Oops! Something went wrong. Please try again.';
+            try {
+                const data = await response.json();
+                if (data && data.errors && data.errors.length > 0) {
+                    errorMsg = data.errors.map(e => e.message).join(' ');
+                }
+            } catch (err) {
+                // Not JSON, keep generic errorMsg
+            }
+            throw new Error(errorMsg);
+        }
+    })
+    .catch(error => {
+        submitBtn.innerHTML = '<i class=\"fas fa-times\"></i> Error!';
+        submitBtn.style.background = '#c33';
+        showFormMessage(error.message || 'Oops! Something went wrong. Please try again.', 'error');
         setTimeout(() => {
             submitBtn.innerHTML = originalText;
             submitBtn.style.background = '#E73364';
             submitBtn.disabled = false;
         }, 3000);
-    }, 2000);
+    });
 });
 
 // Email validation helper
