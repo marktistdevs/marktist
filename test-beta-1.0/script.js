@@ -140,20 +140,30 @@ contactForm.addEventListener('submit', function(e) {
                 submitBtn.disabled = false;
             }, 3000);
         } else {
-            let errorMsg = 'Oops! Something went wrong. Please try again.';
+            let errorMsg = `Error: HTTP ${response.status} ${response.statusText}. `;
+            let details = '';
             try {
                 const data = await response.json();
                 if (data && data.errors && data.errors.length > 0) {
-                    errorMsg = data.errors.map(e => e.message).join(' ');
+                    details = data.errors.map(e => e.message).join(' ');
+                } else if (data && data.message) {
+                    details = data.message;
                 }
             } catch (err) {
-                // Not JSON, keep generic errorMsg
+                try {
+                    const text = await response.text();
+                    if (text) {
+                        details = text;
+                    }
+                } catch (e) {
+                    details = '(No further error details)';
+                }
             }
-            throw new Error(errorMsg);
+            throw new Error(errorMsg + details);
         }
     })
     .catch(error => {
-        submitBtn.innerHTML = '<i class=\"fas fa-times\"></i> Error!';
+        submitBtn.innerHTML = '<i class="fas fa-times"></i> Error!';
         submitBtn.style.background = '#c33';
         showFormMessage(error.message || 'Oops! Something went wrong. Please try again.', 'error');
         setTimeout(() => {
