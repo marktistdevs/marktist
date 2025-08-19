@@ -121,6 +121,11 @@ contactForm.addEventListener('submit', function(e) {
     submitBtn.disabled = true;
 
     // Prepare data for Formspree
+    // Ensure method is POST
+    if (form.method.toUpperCase() !== 'POST') {
+        showFormMessage('Form method is not POST. Please contact the site administrator.', 'error');
+        return;
+    }
     fetch(form.action, {
         method: 'POST',
         body: formData,
