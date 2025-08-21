@@ -114,6 +114,7 @@
                 <span></span>
                 <span></span>
                 <span></span>
+                
             </div>
         </nav>
     </header>
@@ -403,9 +404,90 @@
             </div>
             <div class="footer-bottom">
                 <p>&copy; 2025 MARKTIST. All rights reserved.</p>
+                   <p>
+                       <a href="terms.html">Terms of Use</a> |
+                       <a href="privacy-policy.html">Privacy Policy</a>
+                   </p>
             </div>
         </div>
     </footer>
+                <div id="consent-popup" style="display:none;position:fixed;z-index:99999;left:2vw;bottom:2vw;width:340px;max-width:95vw;background:rgba(255,255,255,0.98);border-radius:16px;box-shadow:0 4px 24px rgba(0,0,0,0.13);padding:1.2rem 1rem 1.1rem 1.2rem;text-align:left;">
+                    <button id="consent-close" aria-label="Close" style="position:absolute;top:10px;right:14px;background:none;border:none;font-size:1.2em;color:#E73364;cursor:pointer;font-family:'Clash Display',Arial,sans-serif;">&times;</button>
+                    <h2 style="color:#E73364;font-family:'Clash Display',Arial,sans-serif;margin-bottom:0.7rem;font-size:1.2em;">Your Privacy Matters</h2>
+                    <p style="font-family:'League Spartan',Arial,sans-serif;color:#222;line-height:1.5;margin-bottom:1.1rem;font-size:0.98em;">We use essential cookies and analytics to provide a better experience. By clicking <b>Agree</b>, you accept our <a href="terms.html" target="_blank" style="color:#E73364;">Terms of Use</a> and <a href="privacy-policy.html" target="_blank" style="color:#E73364;">Privacy Policy</a>, including data collection for analytics.<br><br>If you <b>Reject</b>, you may continue to use the website, but we recommend you leave, as analytics are essential for this website to function.</p>
+                    <div style="display:flex;gap:0.7rem;justify-content:flex-end;">
+                        <button id="consent-agree" style="background:#E73364;color:#fff;padding:0.5em 1.3em;border:none;border-radius:8px;font-family:'Clash Display',Arial,sans-serif;font-size:1em;cursor:pointer;">Agree</button>
+                        <button id="consent-reject" style="background:#eee;color:#E73364;padding:0.5em 1.3em;border:none;border-radius:8px;font-family:'Clash Display',Arial,sans-serif;font-size:1em;cursor:pointer;">Reject</button>
+                    </div>
+                    <div id="consent-reject-msg" style="display:none;margin-top:1.1rem;color:#c33;font-family:'League Spartan',Arial,sans-serif;font-size:0.97em;">You have rejected the terms. You may continue to use the website, but we recommend you leave, as analytics are essential for its operation.</div>
+                </div>
+            <script src="script.js"></script>
+            <script>
+            // Consent popup logic
+            (function() {
+                const consentKey = 'marktist_consent_v1';
+                const popup = document.getElementById('consent-popup');
+                const agreeBtn = document.getElementById('consent-agree');
+                const rejectBtn = document.getElementById('consent-reject');
+                const rejectMsg = document.getElementById('consent-reject-msg');
+                const closeBtn = document.getElementById('consent-close');
+
+                function setConsent(value) {
+                    try {
+                        localStorage.setItem(consentKey, value);
+                    } catch(e) {}
+                    // Also send to service worker if available
+                    if (navigator.serviceWorker && navigator.serviceWorker.controller) {
+                        navigator.serviceWorker.controller.postMessage({type:'consent', value});
+                    }
+                }
+
+                function getConsent() {
+                    try {
+                        return localStorage.getItem(consentKey);
+                    } catch(e) { return null; }
+                }
+
+                        function showPopup() {
+                            popup.style.display = 'block';
+                            document.body.style.overflow = '';
+                        }
+                        function hidePopup() {
+                            popup.style.display = 'none';
+                            document.body.style.overflow = '';
+                        }
+
+                // Only show if not already agreed
+                if (getConsent() !== 'agree') {
+                    showPopup();
+                }
+
+                agreeBtn.onclick = function() {
+                    setConsent('agree');
+                    hidePopup();
+                };
+                        rejectBtn.onclick = function() {
+                            setConsent('reject');
+                            rejectMsg.style.display = 'block';
+                            agreeBtn.style.display = 'none';
+                            rejectBtn.style.display = 'none';
+                            setTimeout(hidePopup, 3500);
+                        };
+                        closeBtn.onclick = function() {
+                            hidePopup();
+                        };
+
+                // Listen for SW ready and send consent if already set
+                if ('serviceWorker' in navigator) {
+                    navigator.serviceWorker.ready.then(function(reg) {
+                        const val = getConsent();
+                        if (val && reg.active) {
+                            reg.active.postMessage({type:'consent', value:val});
+                        }
+                    });
+                }
+            })();
+            </script>
 
     <script src="script.js"></script>
 </body>
