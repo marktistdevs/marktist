@@ -486,14 +486,68 @@
             font-family: 'Clash Display', sans-serif;
             font-size: 1.3rem;
             margin-bottom: 1rem;
-            color: var(--primary);
-        }
-
-        .footer-section p,
-        .footer-section a {
-            color: rgba(255, 255, 255, 0.8);
             text-decoration: none;
             line-height: 1.8;
+        }
+
+        /* Footer social links - base */
+        .footer-content .footer-section .social-links {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            justify-content: center;
+            align-items: center;
+            margin-top: 1rem;
+        }
+
+        .footer-content .footer-section .social-links a {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: var(--primary);
+            color: var(--white);
+            text-decoration: none;
+            transition: transform 0.18s ease, box-shadow 0.18s ease, background 0.18s ease, color 0.18s ease;
+            font-size: 1.15rem;
+        }
+
+        /* Desktop: more space and neutral background for icons */
+        @media (min-width: 700px) {
+            .footer-content .footer-section .social-links {
+                gap: 18px;
+                justify-content: flex-start;
+            }
+            .footer-content .footer-section .social-links a {
+                width: 44px;
+                height: 44px;
+                background: var(--primary);
+                color: #fff;
+                font-size: 1.2rem;
+            }
+            .footer-content .footer-section .social-links a:hover {
+                background: #d12851; /* slightly darker on hover */
+                color: #fff;
+                transform: translateY(-3px);
+                box-shadow: 0 6px 18px rgba(0,0,0,0.12);
+            }
+        }
+
+        /* Small screens: slightly smaller icons */
+        @media (max-width: 699px) {
+            .footer-content .footer-section .social-links {
+                gap: 10px;
+                justify-content: center;
+            }
+            .footer-content .footer-section .social-links a {
+                width: 34px;
+                height: 34px;
+                font-size: 1rem;
+                background: var(--primary);
+                color: #fff;
+            }
         }
 
         .footer-section a:hover {
