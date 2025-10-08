@@ -12,69 +12,199 @@ body {
     overflow: hidden;
 }
 
-/* Splash screen */
+/* Splash screen — solid-color, no gradients, with enhanced animations (keeps your class names) */
+
 .splash {
-    position: fixed;
-    inset: 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background: linear-gradient(135deg, #0f1720 0%, #071029 50%, rgba(231,51,100,0.08) 100%);
-    z-index: 9999;
-    pointer-events: all;
-}
-.splash-inner {
-    text-align: center;
-    color: white;
-}
-.splash-marktist {
-    width: 220px;
-    height: auto;
-    display: block;
-    margin: 0 auto;
-    filter: drop-shadow(0 20px 40px rgba(231,51,100,0.25));
-    animation: marketPulse 2.6s ease-in-out infinite, marketRotate 6s linear infinite;
-}
-.splash-powered {
-    margin-top: 18px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 12px;
-    opacity: 0;
-    transform: translateY(8px);
-    animation: poweredIn 1s ease 1.2s forwards;
-}
-.powered-text {
-    color: rgba(255,255,255,0.85);
-    font-size: 14px;
-    text-transform: lowercase;
-    letter-spacing: 1px;
-    font-family: 'League Spartan', sans-serif;
-}
-.splash-nvidia {
-    width: 72px;
-    height: auto;
-    display: block;
-    filter: drop-shadow(0 6px 18px rgba(0,0,0,0.6)) saturate(1.2) contrast(1.05);
-    transform-origin: center;
-    transform: translateY(2px) scale(0.98);
+position: fixed;
+inset: 0;
+display: flex;
+align-items: center;
+justify-content: center;
+background: #0b1220; /* solid background — no gradient */
+z-index: 9999;
+pointer-events: all;
+overflow: hidden;
+-webkit-font-smoothing: antialiased;
+-moz-osx-font-smoothing: grayscale;
 }
 
+/* two soft blurred color blobs (not gradients) that slowly drift */
+.splash::before,
+.splash::after {
+content: "";
+position: absolute;
+border-radius: 50%;
+filter: blur(36px) saturate(1.05);
+opacity: 0.16;
+pointer-events: none;
+will-change: transform, opacity;
+}
+.splash::before {
+width: 620px;
+height: 620px;
+left: -16%;
+top: -8%;
+background-color: rgba(231,51,100,0.18); /* warm accent blob */
+animation: blobDriftA 9000ms linear infinite;
+}
+.splash::after {
+width: 520px;
+height: 520px;
+right: -12%;
+bottom: -6%;
+background-color: rgba(4,130,255,0.06); /* cool subtle companion */
+animation: blobDriftB 11000ms linear infinite;
+}
+
+/* inner card (glass-like but no gradient) */
+.splash-inner {
+text-align: center;
+color: #ffffff;
+padding: 26px;
+border-radius: 14px;
+background-color: rgba(255,255,255,0.02); /* subtle glass tint */
+border: 1px solid rgba(255,255,255,0.03);
+box-shadow: 0 20px 60px rgba(2,6,15,0.65);
+backdrop-filter: blur(6px);
+transform-origin: center;
+will-change: transform, opacity;
+animation: innerPop 700ms cubic-bezier(.2,.9,.3,1) both;
+}
+
+/* primary mark/logo */
+.splash-marktist {
+width: 220px;
+height: auto;
+display: block;
+margin: 0 auto;
+filter: drop-shadow(0 22px 48px rgba(3,8,18,0.6));
+animation: marketEntrance 900ms cubic-bezier(.2,.95,.3,1) 120ms both, marketFloat 3600ms ease-in-out infinite;
+transform-origin: center;
+will-change: transform, filter;
+}
+
+/* subtle powered-by area */
+.splash-powered {
+margin-top: 18px;
+display: flex;
+align-items: center;
+justify-content: center;
+gap: 12px;
+opacity: 0;
+transform: translateY(10px) scale(0.995);
+animation: poweredIn 850ms ease 1000ms forwards;
+}
+
+/* powered text */
+.powered-text {
+color: rgba(255,255,255,0.86);
+font-size: 14px;
+text-transform: lowercase;
+letter-spacing: 1px;
+font-family: 'League Spartan', sans-serif;
+}
+
+/* partner micro-logo */
+.splash-nvidia {
+width: 72px;
+height: auto;
+display: block;
+filter: drop-shadow(0 6px 18px rgba(0,0,0,0.6)) saturate(1.05);
+transform-origin: center;
+transform: translateY(2px) scale(0.99);
+}
+
+/* redesigned keyframes: entrance, gentle float, and a subtle shine sweep */
+@keyframes marketEntrance {
+0%   { opacity: 0; transform: translateY(18px) scale(0.96); filter: blur(6px); }
+60%  { opacity: 1; transform: translateY(-6px) scale(1.03); filter: blur(0); }
+100% { opacity: 1; transform: translateY(0) scale(1); filter: blur(0); }
+}
+@keyframes marketFloat {
+0%   { transform: translateY(0) rotate(0deg) scale(1); }
+40%  { transform: translateY(-8px) rotate(1.2deg) scale(1.02); }
+70%  { transform: translateY(-4px) rotate(-0.6deg) scale(1.01); }
+100% { transform: translateY(0) rotate(0deg) scale(1); }
+}
+
+/* keep a soft pulse to draw attention but not be heavy */
 @keyframes marketPulse {
-    0% { transform: scale(0.98); filter: drop-shadow(0 20px 40px rgba(231,51,100,0.10)); }
-    35% { transform: scale(1.06); filter: drop-shadow(0 36px 60px rgba(231,51,100,0.22)); }
-    70% { transform: scale(1.00); filter: drop-shadow(0 20px 40px rgba(231,51,100,0.12)); }
-    100% { transform: scale(0.98); }
+0% { transform: scale(0.99); filter: drop-shadow(0 18px 36px rgba(231,51,100,0.08)); }
+40% { transform: scale(1.04); filter: drop-shadow(0 40px 72px rgba(231,51,100,0.18)); }
+100% { transform: scale(0.99); filter: drop-shadow(0 18px 36px rgba(231,51,100,0.08)); }
 }
+
+/* subtle tilt rotation */
 @keyframes marketRotate {
-    0% { transform: rotate(0deg) scale(1); }
-    50% { transform: rotate(2deg) scale(1.02); }
-    100% { transform: rotate(0deg) scale(1); }
+0%   { transform: rotate(0deg) translateY(0); }
+50%  { transform: rotate(1.6deg) translateY(-2px); }
+100% { transform: rotate(0deg) translateY(0); }
 }
+
+/* powered in */
 @keyframes poweredIn {
-    to { opacity: 1; transform: translateY(0); }
+from { opacity: 0; transform: translateY(10px) scale(0.995); }
+to   { opacity: 1; transform: translateY(0) scale(1); }
 }
+
+/* tiny inner pop for splash card */
+@keyframes innerPop {
+0% { opacity: 0; transform: scale(0.996) translateY(6px); }
+100% { opacity: 1; transform: scale(1) translateY(0); }
+}
+
+/* blobs drifting */
+@keyframes blobDriftA {
+0%   { transform: translate(0,0) scale(1); }
+25%  { transform: translate(18px,-14px) scale(1.02); }
+50%  { transform: translate(0,-28px) scale(1); }
+75%  { transform: translate(-22px,-12px) scale(0.98); }
+100% { transform: translate(0,0) scale(1); }
+}
+@keyframes blobDriftB {
+0%   { transform: translate(0,0) scale(1); }
+30%  { transform: translate(-18px,12px) scale(1.04); }
+60%  { transform: translate(8px,28px) scale(1); }
+90%  { transform: translate(20px,8px) scale(0.98); }
+100% { transform: translate(0,0) scale(1); }
+}
+
+/* Splash hide animation — a refined fade + scale out */
+.splash.hide {
+animation: splashOut 760ms cubic-bezier(.2,.9,.3,1) forwards;
+}
+@keyframes splashOut {
+0%   { opacity: 1; transform: scale(1); }
+40%  { opacity: 0.98; transform: scale(0.987); }
+100% { opacity: 0; transform: scale(1.06); visibility: hidden; }
+}
+
+/* Make sure app content is hidden while splash is active */
+.splash + .container {
+visibility: hidden;
+}
+.splash.hide + .container {
+visibility: visible;
+}
+
+/* Respect reduced motion */
+@media (prefers-reduced-motion: reduce) {
+.splash::before, .splash::after,
+.splash-marktist, .splash-powered, .splash-inner {
+animation: none !important;
+transition: none !important;
+}
+.splash-powered { opacity: 1; transform: none; }
+}
+
+/* small screen adjustments */
+@media (max-width: 520px) {
+.splash-inner { padding: 18px; border-radius: 12px; }
+.splash-marktist { width: 160px; }
+.splash-nvidia { width: 56px; }
+.splash::before { display: none; } /* hide large blobs on tiny screens */
+}
+
 
 /* Splash hide animation */
 .splash.hide {
@@ -521,4 +651,5 @@ body {
     .suggestion-card p {
         font-size: 0.875rem;
     }
+
 }
