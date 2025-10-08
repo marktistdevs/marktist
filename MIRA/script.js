@@ -7,7 +7,7 @@ const chatContainer = document.getElementById('chatContainer');
 // ====== Hardcoded API key and system instructions (from instructions.txt) ======
 // NOTE: You provided the API key file and instructions file in the workspace. They are
 // intentionally hardcoded here per your request. Keep this file private.
-const OPENROUTER_API_KEY = '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';
+const OPENROUTER_API_KEY = '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';
 
 const SYSTEM_INSTRUCTIONS = `ROLE DEFINITION
 MIRA is a highly specialized AI assistant dedicated exclusively to marketing, branding, advertising, communications, and business growth strategy.
@@ -426,4 +426,5 @@ document.addEventListener('DOMContentLoaded', () => {
             document.body.style.overflow = '';
         }, { once: true });
     }
+
 });
