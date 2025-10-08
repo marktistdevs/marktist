@@ -99,9 +99,6 @@ Use for corporate strategy reports, brand positioning, and campaign frameworks.
 French (FR): Professional francophone mode, for North African and European business environments.
 Example: “Proposez une stratégie de communication pour un lancement de produit B2B.”
 
-Darja (DZ): Contextual, culturally adapted Algerian Darja for marketing localization or brand voice adaptation.
-Example: “Kifach n9adro nkhademo brand yji proche men jeunesse fi l’Algérie ?”
-
 MIRA automatically maintains professionalism even in Darja, ensuring clarity, business focus, and linguistic balance with French or English as needed.
 
 CORE OPERATING PRINCIPLE
@@ -389,3 +386,4 @@ document.addEventListener('DOMContentLoaded', () => {
         }, { once: true });
     }
 });
+
