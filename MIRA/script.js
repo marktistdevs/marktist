@@ -227,35 +227,48 @@ function scrollToBottom() {
     chatContainer.scrollTop = chatContainer.scrollHeight;
 }
 
-// ✅ UPDATED OpenRouter Function — routed through Vercel backend
 async function sendToOpenRouter(userMessage) {
-    const payload = {
-        model: 'nvidia/nemotron-nano-9b-v2:free',
-        messages: [
-            { role: 'system', content: SYSTEM_INSTRUCTIONS },
-            { role: 'user', content: userMessage }
-        ]
-    };
+    // Keep chat history for this session (clears on page reload)
+    window.chatHistory = window.chatHistory || [
+        { role: 'system', content: SYSTEM_INSTRUCTIONS }
+    ];
 
-    const res = await fetch('/api/mira', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(payload)
-    });
+    // Add the user's message
+    window.chatHistory.push({ role: 'user', content: userMessage });
 
-    if (!res.ok) {
-        const text = await res.text();
-        throw new Error(`Backend error: ${res.status} ${text}`);
+    try {
+        const response = await fetch('/api/mira', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                model: 'nvidia/nemotron-nano-9b-v2:free',
+                messages: window.chatHistory
+            })
+        });
+
+        if (!response.ok) {
+            const errorText = await response.text();
+            throw new Error(`Backend error: ${response.status} ${errorText}`);
+        }
+
+        const data = await response.json();
+
+        // Extract assistant reply
+        const assistantContent = data?.choices?.[0]?.message?.content ||
+                                 data?.choices?.[0]?.text ||
+                                 "No response";
+
+        // Save assistant message to history
+        window.chatHistory.push({ role: 'assistant', content: assistantContent });
+
+        return assistantContent;
+
+    } catch (error) {
+        console.error("Error fetching assistant response:", error);
+        throw error;
     }
-
-    const data = await res.json();
-    const assistantContent =
-        data?.choices?.[0]?.message?.content ||
-        data?.choices?.[0]?.text ||
-        JSON.stringify(data);
-
-    return assistantContent;
 }
+
 
 // Markdown rendering
 function escapeHtml(str) {
@@ -386,4 +399,5 @@ document.addEventListener('DOMContentLoaded', () => {
         }, { once: true });
     }
 });
+
 
