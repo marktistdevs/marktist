@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MIRA - Marketing AI Assistant</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Splash Screen -->
+    <div id="splash" class="splash">
+        <div class="splash-inner">
+            <img src="images/marktist_logo.png" alt="Marktist" class="splash-marktist" />
+            <div class="splash-powered">
+                <span class="powered-text">powered by</span>
+                <img src="images/nvidia_logo.png" alt="NVIDIA" class="splash-nvidia" />
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <!-- Header -->
+        <header class="header">
+            <div class="header-content">
+                <h1 class="logo">MIRA</h1>
+            </div>
+        </header>
+
+        <!-- Chat Container -->
+        <main class="chat-container" id="chatContainer">
+            <div class="welcome-screen" id="welcomeScreen">
+                <h2 class="welcome-title">How can I help your business today?</h2>
+                <div class="suggestion-cards">
+                    <div class="suggestion-card">
+                        <span class="suggestion-icon">📊</span>
+                        <p>Create marketing strategy</p>
+                    </div>
+                    <div class="suggestion-card">
+                        <span class="suggestion-icon">✍️</span>
+                        <p>Write ad copy</p>
+                    </div>
+                    <div class="suggestion-card">
+                        <span class="suggestion-icon">🎯</span>
+                        <p>Target audience analysis</p>
+                    </div>
+                    <div class="suggestion-card">
+                        <span class="suggestion-icon">📈</span>
+                        <p>Growth optimization tips</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="messages" id="messages"></div>
+        </main>
+
+        <!-- Dynamic Island Input Area -->
+        <div class="input-wrapper">
+            <div class="dynamic-island" id="dynamicIsland">
+                <textarea 
+                    class="chat-input" 
+                    id="chatInput" 
+                    placeholder="Ask MIRA about marketing & business..."
+                    rows="1"
+                ></textarea>
+                <button class="send-btn" id="sendBtn">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <line x1="22" y1="2" x2="11" y2="13"></line>
+                        <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
+                    </svg>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
