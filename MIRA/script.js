@@ -4,11 +4,6 @@ const messagesContainer = document.getElementById('messages');
 const welcomeScreen = document.getElementById('welcomeScreen');
 const chatContainer = document.getElementById('chatContainer');
 
-// ====== Hardcoded API key and system instructions (from instructions.txt) ======
-// NOTE: You provided the API key file and instructions file in the workspace. They are
-// intentionally hardcoded here per your request. Keep this file private.
-const OPENROUTER_API_KEY = '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';
-
 const SYSTEM_INSTRUCTIONS = `ROLE DEFINITION
 MIRA is a highly specialized AI assistant dedicated exclusively to marketing, branding, advertising, communications, and business growth strategy.
 Her core mission is to deliver expert-level insights, structured recommendations, and actionable strategies that empower businesses and professionals to build, position, and scale their brands effectively across all markets.
@@ -190,7 +185,6 @@ function addMessage(text, sender) {
     
     const messageText = document.createElement('div');
     messageText.className = 'message-text';
-    // Render markdown safely for both user and assistant messages
     messageText.innerHTML = markdownToHtml(text);
     
     content.appendChild(messageText);
@@ -236,8 +230,8 @@ function scrollToBottom() {
     chatContainer.scrollTop = chatContainer.scrollHeight;
 }
 
+// ✅ UPDATED OpenRouter Function — routed through Vercel backend
 async function sendToOpenRouter(userMessage) {
-    // Prepare payload: include system instructions on every request as requested
     const payload = {
         model: 'nvidia/nemotron-nano-9b-v2:free',
         messages: [
@@ -246,31 +240,27 @@ async function sendToOpenRouter(userMessage) {
         ]
     };
 
-    const res = await fetch('https://openrouter.ai/api/v1/chat/completions', {
+    const res = await fetch('/api/mira', {
         method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-            'Authorization': `Bearer ${OPENROUTER_API_KEY}`
-        },
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(payload)
     });
 
     if (!res.ok) {
         const text = await res.text();
-        throw new Error(`OpenRouter API error: ${res.status} ${text}`);
+        throw new Error(`Backend error: ${res.status} ${text}`);
     }
 
     const data = await res.json();
-
-    // Typical OpenRouter response structure mirrors OpenAI: choices[0].message.content
-    const assistantContent = data?.choices?.[0]?.message?.content || data?.choices?.[0]?.text || JSON.stringify(data);
+    const assistantContent =
+        data?.choices?.[0]?.message?.content ||
+        data?.choices?.[0]?.text ||
+        JSON.stringify(data);
 
     return assistantContent;
 }
 
-// Simple, safe markdown-to-HTML converter (supports headings, bold, italic,
-// inline code, fenced code blocks, links, unordered/ordered lists, and paragraphs).
-// It escapes HTML to prevent XSS, then converts markdown constructs.
+// Markdown rendering
 function escapeHtml(str) {
     return String(str)
         .replace(/&/g, '&amp;')
@@ -282,14 +272,12 @@ function escapeHtml(str) {
 
 function markdownToHtml(md) {
     if (md === null || md === undefined) return '';
-    // Normalize line endings
     const text = String(md).replace(/\r\n?/g, '\n');
-
     let html = '';
     const lines = text.split('\n');
     let inCodeBlock = false;
     let codeBlockLang = '';
-    let listType = null; // 'ul' or 'ol'
+    let listType = null;
 
     function closeList() {
         if (listType) {
@@ -300,8 +288,6 @@ function markdownToHtml(md) {
 
     for (let i = 0; i < lines.length; i++) {
         let line = lines[i];
-
-        // Fenced code blocks ```
         const codeFenceMatch = line.match(/^```\s*(\S+)?/);
         if (codeFenceMatch) {
             if (!inCodeBlock) {
@@ -321,7 +307,6 @@ function markdownToHtml(md) {
             continue;
         }
 
-        // Headings
         const hMatch = line.match(/^(#{1,6})\s+(.*)$/);
         if (hMatch) {
             closeList();
@@ -330,7 +315,6 @@ function markdownToHtml(md) {
             continue;
         }
 
-        // Unordered list
         if (/^\s*[-*+]\s+/.test(line)) {
             if (listType !== 'ul') {
                 closeList();
@@ -342,7 +326,6 @@ function markdownToHtml(md) {
             continue;
         }
 
-        // Ordered list
         if (/^\s*\d+\.\s+/.test(line)) {
             if (listType !== 'ol') {
                 closeList();
@@ -354,48 +337,35 @@ function markdownToHtml(md) {
             continue;
         }
 
-        // Blank line -> paragraph separation
         if (/^\s*$/.test(line)) {
             closeList();
             html += '<p></p>';
             continue;
         }
 
-        // Regular paragraph line
         closeList();
         html += `<p>${inlineMd(line)}</p>`;
     }
 
-    // Close any open list at end
     if (listType) html += `</${listType}>`;
-
-    // Remove empty paragraph placeholders for consecutive blank lines
     html = html.replace(/<p><\/p>/g, '');
     return html;
 
-    // Inline-level markdown (bold, italic, links, inline code)
     function inlineMd(str) {
         let s = escapeHtml(str);
-        // Inline code: `code`
-        s = s.replace(/`([^`]+)`/g, function(m, p1) { return `<code>${escapeHtml(p1)}</code>`; });
-        // Bold **text** or __text__
+        s = s.replace(/`([^`]+)`/g, (_, p1) => `<code>${escapeHtml(p1)}</code>`);
         s = s.replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>');
         s = s.replace(/__(.+?)__/g, '<strong>$1</strong>');
-        // Italic *text* or _text_
         s = s.replace(/\*(.+?)\*/g, '<em>$1</em>');
         s = s.replace(/_(.+?)_/g, '<em>$1</em>');
-        // Links [text](url)
-        s = s.replace(/\[([^\]]+)\]\(([^)]+)\)/g, function(m, p1, p2) {
+        s = s.replace(/\[([^\]]+)\]\(([^)]+)\)/g, (_, p1, p2) => {
             const url = escapeHtml(p2);
-            const text = p1;
-            // Basic URL validation to avoid javascript: pseudo-protocols
             if (/^\s*javascript:/i.test(p2)) return escapeHtml(p1);
-            return `<a href="${url}" target="_blank" rel="noopener noreferrer">${inlineMd(text)}</a>`;
+            return `<a href="${url}" target="_blank" rel="noopener noreferrer">${inlineMd(p1)}</a>`;
         });
         return s;
     }
 }
-
 
 // Initialize
 sendBtn.disabled = true;
@@ -404,27 +374,18 @@ sendBtn.disabled = true;
 document.addEventListener('DOMContentLoaded', () => {
     const splash = document.getElementById('splash');
     const container = document.querySelector('.container');
-
     if (!splash) return;
-
-    // Allow click to skip splash
     splash.addEventListener('click', () => hideSplash(splash));
-
-    // Auto-hide after 2.6s + small buffer to let animations finish
     const AUTO_HIDE_MS = 2600 + 600;
     setTimeout(() => hideSplash(splash), AUTO_HIDE_MS);
 
-    // Ensure container is visible after splash hides
     function hideSplash(el) {
         if (!el || el.classList.contains('hide')) return;
         el.classList.add('hide');
-        // After animation ends remove it from the DOM flow and reveal app
         el.addEventListener('animationend', () => {
             try { el.remove(); } catch(e) {}
             if (container) container.style.visibility = 'visible';
-            // Allow scrolling now that splash is gone
             document.body.style.overflow = '';
         }, { once: true });
     }
-
 });
