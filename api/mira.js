@@ -17,6 +17,18 @@ export default async function handler(req, res) {
     // Parse request body (works for both Vercel Edge + Node environments)
     const body =
       typeof req.body === 'string' ? JSON.parse(req.body) : req.body;
+    
+// CORS fix for frontend calls
+if (req.method === 'OPTIONS') {
+  res.setHeader('Access-Control-Allow-Origin', '*');
+  res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS');
+  res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
+  return res.status(200).end();
+}
+
+res.setHeader('Access-Control-Allow-Origin', '*');
+res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS');
+res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
 
     // Send request to OpenRouter
     const openRouterResponse = await fetch('https://openrouter.ai/api/v1/chat/completions', {
