@@ -18,17 +18,19 @@ export default async function handler(req, res) {
     const body =
       typeof req.body === 'string' ? JSON.parse(req.body) : req.body;
     
-// CORS fix for frontend calls
-if (req.method === 'OPTIONS') {
-  res.setHeader('Access-Control-Allow-Origin', '*');
-  res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS');
-  res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
-  return res.status(200).end();
-}
+export default async function handler(req, res) {
+  // ✅ Allow requests from anywhere (for now)
+  res.setHeader("Access-Control-Allow-Origin", "*");
+  res.setHeader("Access-Control-Allow-Methods", "POST, OPTIONS");
+  res.setHeader("Access-Control-Allow-Headers", "Content-Type");
 
-res.setHeader('Access-Control-Allow-Origin', '*');
-res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS');
-res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
+  // ✅ Handle preflight requests
+  if (req.method === "OPTIONS") {
+    return res.status(200).end();
+  }
+
+  // ... your existing code below
+}
 
     // Send request to OpenRouter
     const openRouterResponse = await fetch('https://openrouter.ai/api/v1/chat/completions', {
