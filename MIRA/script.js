@@ -246,7 +246,7 @@ async function sendToOpenRouter(userMessage) {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
-                model: 'nvidia/nemotron-nano-9b-v2:free',
+                model: 'nvidia/nemotron-nano-12b-v2-vl:free',
                 messages: window.chatHistory
             })
         });
@@ -404,6 +404,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }, { once: true });
     }
 });
+
 
 
 
