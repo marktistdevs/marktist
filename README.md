@@ -28,29 +28,6 @@ beta testing/
 └── ...
 ```
 
-## Getting Started
-
-1. **Clone the repository:**
-   ```sh
-   git clone https://github.com/yourusername/marktist-beta.git
-   cd marktist-beta/beta\ testing
-   ```
-2. **Open `index.html` in your browser.**
-3. **For PWA features:**
-   - The service worker (`sw.js`) is registered automatically if served from the root of the `beta testing` folder.
-   - For full offline support, use a local server (e.g., VS Code Live Server, Python's `http.server`, etc.).
-
-## Deployment
-
-- Upload the contents of the `beta testing` folder to your web server.
-- Ensure the root path matches the asset paths in `index.html` and `sw.js`.
-
-## Customization
-
-- Update portfolio items, contact info, and branding in `index.html`.
-- Adjust styles in `styles.css` as needed.
-- Add or remove fonts in the `Fonts/` directory.
-
 ## License
 
 This project is for demonstration and beta testing purposes. Please contact the MARKTIST team for production use or licensing inquiries.
