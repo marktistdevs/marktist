@@ -1,0 +1,231 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
+:root {
+    --bg-color: #050507;
+    --text-primary: #f5f5f7;
+    --text-secondary: #86868b;
+    --accent-color: #2997ff;
+    --glass-bg: rgba(20, 20, 25, 0.6);
+    --glass-border: rgba(255, 255, 255, 0.08);
+    --nav-height: 54px;
+    --section-gap: 120px;
+    --font-main: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    --blur-strength: 40px;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: var(--bg-color);
+    color: var(--text-primary);
+    font-family: var(--font-main);
+    overflow-x: hidden;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+}
+
+/* Scrollbar */
+::-webkit-scrollbar {
+    width: 6px;
+}
+
+::-webkit-scrollbar-track {
+    background: var(--bg-color);
+}
+
+::-webkit-scrollbar-thumb {
+    background: #333;
+    border-radius: 10px;
+}
+
+/* Typography */
+h1,
+h2,
+h3,
+h4 {
+    font-weight: 600;
+    letter-spacing: -0.03em;
+}
+
+h1 {
+    font-size: clamp(48px, 8vw, 96px);
+    line-height: 1.05;
+    background: linear-gradient(180deg, #fff 20%, #666 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    margin-bottom: 24px;
+}
+
+h2 {
+    font-size: clamp(32px, 5vw, 56px);
+    color: #fff;
+}
+
+p {
+    color: var(--text-secondary);
+    font-size: clamp(18px, 2vw, 21px);
+    max-width: 640px;
+    margin: 0 auto;
+    font-weight: 400;
+}
+
+a {
+    color: inherit;
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+
+/* Icons */
+i {
+    vertical-align: middle;
+}
+
+/* Navigation */
+.nav-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1000;
+    backdrop-filter: blur(var(--blur-strength));
+    -webkit-backdrop-filter: blur(var(--blur-strength));
+    background: rgba(5, 5, 7, 0.7);
+    border-bottom: 1px solid var(--glass-border);
+}
+
+.nav-content {
+    max-width: 1040px;
+    margin: 0 auto;
+    height: var(--nav-height);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 24px;
+    font-size: 13px;
+    font-weight: 500;
+}
+
+.nav-links {
+    display: flex;
+    gap: 32px;
+}
+
+.nav-links a:hover {
+    color: #fff;
+}
+
+.brand {
+    font-weight: 700;
+    font-size: 18px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: #fff;
+}
+
+/* Base Section */
+section {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 120px 24px;
+    position: relative;
+    overflow: hidden;
+}
+
+/* Buttons */
+.btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 14px 28px;
+    border-radius: 980px;
+    font-size: 17px;
+    font-weight: 500;
+    transition: transform 0.2s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+.btn-primary {
+    background: #fff;
+    color: #000;
+    margin-top: 32px;
+}
+
+.btn-primary:hover {
+    transform: scale(1.03);
+    box-shadow: 0 0 40px rgba(255, 255, 255, 0.3);
+}
+
+/* Glass Card */
+.glass-card {
+    background: var(--glass-bg);
+    border: 1px solid var(--glass-border);
+    backdrop-filter: blur(40px);
+    -webkit-backdrop-filter: blur(40px);
+    border-radius: 24px;
+    padding: 48px;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+}
+
+/* Abstract Backgrounds */
+.blob {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(80px);
+    z-index: -1;
+    opacity: 0.6;
+    animation: float 10s infinite ease-in-out;
+}
+
+.blob-blue {
+    background: radial-gradient(circle, #2997ff 0%, transparent 70%);
+}
+
+.blob-purple {
+    background: radial-gradient(circle, #bf5af2 0%, transparent 70%);
+}
+
+@keyframes float {
+    0% {
+        transform: translate(0, 0);
+    }
+
+    50% {
+        transform: translate(20px, -20px);
+    }
+
+    100% {
+        transform: translate(0, 0);
+    }
+}
+
+/* Parallax Animation Classes */
+.parallax-item {
+    opacity: 0;
+    transition: transform 1.2s cubic-bezier(0.16, 1, 0.3, 1), opacity 1.2s ease;
+    will-change: transform, opacity;
+}
+
+.from-left {
+    transform: translateX(-80px);
+}
+
+.from-right {
+    transform: translateX(80px);
+}
+
+.from-bottom {
+    transform: translateY(80px);
+}
+
+.visible {
+    opacity: 1;
+    transform: translate(0, 0);
+}

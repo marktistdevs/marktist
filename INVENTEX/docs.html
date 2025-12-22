@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Documentation - INVENTEX</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    <style>
+        .docs-container {
+            max-width: 1040px;
+            margin: 120px auto;
+            padding: 20px;
+            display: grid;
+            grid-template-columns: 280px 1fr;
+            gap: 60px;
+        }
+
+        .sidebar {
+            position: sticky;
+            top: 100px;
+            height: fit-content;
+        }
+
+        .sidebar h4 {
+            margin-bottom: 24px;
+            color: #fff;
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            opacity: 0.6;
+        }
+
+        .sidebar-links {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin-bottom: 40px;
+        }
+
+        .sidebar a {
+            color: var(--text-secondary);
+            font-size: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 8px 0;
+        }
+
+        .sidebar a:hover,
+        .sidebar a.active {
+            color: var(--accent-color);
+            transform: translateX(5px);
+        }
+
+        .content h2 {
+            margin: 0 0 24px 0;
+            font-size: 32px;
+            border-bottom: 1px solid var(--glass-border);
+            padding-bottom: 16px;
+        }
+
+        .content h3 {
+            margin: 40px 0 16px 0;
+            font-size: 24px;
+            color: #fff;
+        }
+
+        .content p {
+            margin: 0 0 24px 0;
+            text-align: left;
+            font-size: 17px;
+            line-height: 1.7;
+            max-width: 100%;
+        }
+
+        .code-block {
+            background: rgba(0, 0, 0, 0.5);
+            border: 1px solid var(--glass-border);
+            padding: 20px;
+            border-radius: 12px;
+            font-family: monospace;
+            color: #a5b3ce;
+            margin-bottom: 24px;
+            overflow-x: auto;
+        }
+
+        @media (max-width: 900px) {
+            .docs-container {
+                grid-template-columns: 1fr;
+            }
+
+            .sidebar {
+                position: relative;
+                top: 0;
+                border-bottom: 1px solid var(--glass-border);
+                padding-bottom: 20px;
+                margin-bottom: 40px;
+                background: none;
+                backdrop-filter: none;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <nav class="nav-container">
+        <div class="nav-content">
+            <a href="index.html" class="brand">
+                <i class="ph-fill ph-cube-transparent" style="color: var(--accent-color); font-size: 20px;"></i>
+                INVENTEX
+            </a>
+            <div class="nav-links">
+                <a href="index.html">Home</a>
+                <a href="download.html">Download</a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="docs-container">
+        <aside class="sidebar slide-in-left parallax-item from-left">
+            <h4>Start Here</h4>
+            <div class="sidebar-links">
+                <a href="#" class="active"><i class="ph-regular ph-caret-right"></i> Introduction</a>
+                <a href="#"><i class="ph-regular ph-download-simple"></i> Installation</a>
+                <a href="#"><i class="ph-regular ph-gear"></i> Configuration</a>
+            </div>
+
+            <h4>Core Concepts</h4>
+            <div class="sidebar-links">
+                <a href="#"><i class="ph-regular ph-package"></i> Products</a>
+                <a href="#"><i class="ph-regular ph-users"></i> Users</a>
+                <a href="#"><i class="ph-regular ph-chart-bar"></i> Reporting</a>
+            </div>
+
+            <h4>Support</h4>
+            <div class="sidebar-links">
+                <a href="#"><i class="ph-regular ph-question"></i> FAQ</a>
+                <a href="#"><i class="ph-regular ph-envelope"></i> Contact</a>
+            </div>
+        </aside>
+
+        <main class="content parallax-item from-right">
+            <h2>Introduction</h2>
+            <p>Welcome to <strong>INVENTEX</strong>, the next-generation inventory management solution. We've reimagined
+                how businesses track, manage, and analyze their stock, moving away from clunky spreadsheets to a sleek,
+                native Windows experience.</p>
+
+            <h3>System Requirements</h3>
+            <p>To ensure the smoothest experience, your system should meet the following requirements:</p>
+            <div class="code-block">
+                OS: Windows 10 (Version 2004 or later) or Windows 11
+                Architecture: x64 or ARM64
+                RAM: 4GB Minimum (8GB Recommended)
+                Storage: 500MB available space
+            </div>
+
+            <h3>First-time Setup</h3>
+            <p>After downloading the installer, run the executable. INVENTEX handles all dependency installations
+                automatically. Once installed, log in with your credentials to start syncing your workspace instantly.
+            </p>
+
+            <h3>Why Local-First?</h3>
+            <p>We believe in speed. INVENTEX stores your data locally for zero-latency operations and syncs to the cloud
+                in the background. This ensures you can keep working even when your internet connection drops.</p>
+        </main>
+    </div>
+
+    <!-- Background Blob -->
+    <div class="blob blob-purple" style="top: 20%; right: -10%; width: 40vw; height: 40vw;" data-speed="0.05"></div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>

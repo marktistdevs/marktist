@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Account Confirmed - INVENTEX</title>
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
+        :root {
+            --bg-color: #050507;
+            --text-primary: #f5f5f7;
+            --text-secondary: #86868b;
+            --accent-color: #2997ff;
+            --glass-bg: rgba(20, 20, 25, 0.6);
+            --glass-border: rgba(255, 255, 255, 0.08);
+            --font-main: 'Inter', sans-serif;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-primary);
+            font-family: var(--font-main);
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+            position: relative;
+        }
+
+        /* Ambient Background */
+        .blob {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(80px);
+            z-index: -1;
+            opacity: 0.5;
+            animation: float 10s infinite ease-in-out;
+        }
+
+        .blob-1 {
+            width: 60vw;
+            height: 60vw;
+            background: radial-gradient(circle, #2997ff 0%, transparent 70%);
+            top: -20%;
+            left: -10%;
+        }
+
+        .blob-2 {
+            width: 50vw;
+            height: 50vw;
+            background: radial-gradient(circle, #bf5af2 0%, transparent 70%);
+            bottom: -10%;
+            right: -10%;
+            animation-delay: -5s;
+        }
+
+        @keyframes float {
+
+            0%,
+            100% {
+                transform: translate(0, 0);
+            }
+
+            50% {
+                transform: translate(30px, -30px);
+            }
+        }
+
+        /* Card Container */
+        .card {
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            backdrop-filter: blur(40px);
+            -webkit-backdrop-filter: blur(40px);
+            padding: 60px 40px;
+            border-radius: 32px;
+            text-align: center;
+            max-width: 480px;
+            width: 90%;
+            opacity: 0;
+            transform: translateY(30px);
+            animation: slideUp 1s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+            box-shadow: 0 40px 80px rgba(0, 0, 0, 0.4);
+        }
+
+        @keyframes slideUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .icon-circle {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, rgba(41, 151, 255, 0.2), rgba(41, 151, 255, 0.05));
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 0 auto 30px;
+            border: 1px solid rgba(41, 151, 255, 0.3);
+            box-shadow: 0 0 30px rgba(41, 151, 255, 0.2);
+            animation: pulse 3s infinite;
+        }
+
+        @keyframes pulse {
+            0% {
+                box-shadow: 0 0 0 0 rgba(41, 151, 255, 0.4);
+            }
+
+            70% {
+                box-shadow: 0 0 0 20px rgba(41, 151, 255, 0);
+            }
+
+            100% {
+                box-shadow: 0 0 0 0 rgba(41, 151, 255, 0);
+            }
+        }
+
+        h1 {
+            font-size: 32px;
+            line-height: 1.1;
+            margin-bottom: 16px;
+            background: linear-gradient(180deg, #fff 20%, #888 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        p {
+            color: var(--text-secondary);
+            font-size: 16px;
+            line-height: 1.6;
+            margin-bottom: 40px;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            width: 100%;
+            padding: 16px;
+            border-radius: 16px;
+            font-size: 17px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.3s cubic-bezier(0.25, 1, 0.5, 1);
+            cursor: pointer;
+        }
+
+        .btn-primary {
+            background: #fff;
+            color: #000;
+            margin-bottom: 16px;
+        }
+
+        .btn-primary:hover {
+            transform: scale(1.02);
+            box-shadow: 0 0 30px rgba(255, 255, 255, 0.2);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: var(--text-secondary);
+            font-size: 14px;
+        }
+
+        .btn-secondary:hover {
+            color: #fff;
+        }
+
+        .footer-text {
+            margin-top: 30px;
+            font-size: 12px;
+            color: #555;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="blob blob-1"></div>
+    <div class="blob blob-2"></div>
+
+    <div class="card">
+        <div class="icon-circle">
+            <i class="ph-fill ph-check" style="font-size: 40px; color: var(--accent-color);"></i>
+        </div>
+
+        <h1>You're All Set.</h1>
+        <p>Your INVENTEX workspace has been successfully provisioned. You are now ready to experience the future of
+            inventory management.</p>
+
+        <a href="inventex://open" class="btn btn-primary" id="openAppBtn">
+            Open INVENTEX <i class="ph-bold ph-arrow-up-right"></i>
+        </a>
+
+        <a href="index.html" class="btn btn-secondary">
+            Back to Website
+        </a>
+
+        <div class="footer-text">
+            If the app doesn't open automatically, ensure INVENTEX is installed on your device.
+        </div>
+    </div>
+
+    <script>
+        // Optional: Auto-trigger deep link after a short delay
+        setTimeout(() => {
+            const btn = document.getElementById('openAppBtn');
+            btn.style.transform = 'scale(1.02)';
+            setTimeout(() => {
+                btn.style.transform = 'scale(1)';
+            }, 200);
+
+            // Uncomment to auto-redirect
+            // window.location.href = "inventex://open";
+        }, 1500);
+    </script>
+</body>
+
+</html>
