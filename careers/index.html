@@ -628,6 +628,62 @@
                     <p class="form-note">We usually respond within 3 days. If you don't hear back, check spam or just
                         ping us again.</p>
                 </form>
+                
+/* ========================================
+   CONTACT ALTERNATIVES
+   ======================================== */
+.contact-alt {
+    margin-top: 32px;
+    padding-top: 28px;
+    border-top: 1px solid var(--warm-200);
+    text-align: center;
+}
+
+.contact-alt-title {
+    font-size: 0.9rem;
+    color: var(--text-muted);
+    margin-bottom: 16px;
+}
+
+.contact-methods {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.contact-method {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    padding: 12px 16px;
+    background: var(--warm-100);
+    border-radius: var(--radius-sm);
+    color: var(--text-soft);
+    text-decoration: none;
+    font-size: 0.9rem;
+    transition: all var(--transition);
+}
+
+.contact-method:hover {
+    background: var(--accent-pale);
+    color: var(--accent);
+}
+
+.contact-method svg {
+    width: 18px;
+    height: 18px;
+    flex-shrink: 0;
+}
+
+@media (min-width: 540px) {
+    .contact-methods {
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+}
+
             </div>
         </section>
     </main>
