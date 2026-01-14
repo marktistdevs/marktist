@@ -561,144 +561,16 @@
                         <span>@abdou.sdl</span>
                     </a>
                 </div>
-                <p class="contact-note">You can also apply using the form below 👇</p>
+                <p class="contact-note">Or apply using the form below 👇</p>
 
-                <form class="apply-form" id="applyForm" action="https://formsubmit.co/contactmarktist@proton.me"
-                    method="POST">
-                    <!-- FormSubmit config -->
-                    <input type="hidden" name="_subject" value="New Job Application">
-                    <input type="hidden" name="_captcha" value="false">
-                    <input type="hidden" name="_template" value="table">
-                    <input type="hidden" name="_next" value="about:blank">
-                    <input type="text" name="_honey" style="display:none">
-
-                    <!-- Role Cards -->
-                    <div class="role-cards">
-                        <label class="role-card" data-value="community">
-                            <input type="radio" name="role" value="community" required>
-                            <div class="role-card-inner">
-                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-                                    <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" />
-                                    <circle cx="9" cy="7" r="4" />
-                                </svg>
-                                <span>Community</span>
-                            </div>
-                            <div class="role-check">
-                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
-                                    <polyline points="20 6 9 17 4 12" />
-                                </svg>
-                            </div>
-                        </label>
-                        <label class="role-card" data-value="developer">
-                            <input type="radio" name="role" value="developer">
-                            <div class="role-card-inner">
-                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-                                    <polyline points="16 18 22 12 16 6" />
-                                    <polyline points="8 6 2 12 8 18" />
-                                </svg>
-                                <span>Developer</span>
-                            </div>
-                            <div class="role-check">
-                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
-                                    <polyline points="20 6 9 17 4 12" />
-                                </svg>
-                            </div>
-                        </label>
-                        <label class="role-card" data-value="video">
-                            <input type="radio" name="role" value="video">
-                            <div class="role-card-inner">
-                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-                                    <polygon points="23 7 16 12 23 17 23 7" />
-                                    <rect x="1" y="5" width="15" height="14" rx="2" />
-                                </svg>
-                                <span>Video</span>
-                            </div>
-                            <div class="role-check">
-                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
-                                    <polyline points="20 6 9 17 4 12" />
-                                </svg>
-                            </div>
-                        </label>
-                        <label class="role-card" data-value="design">
-                            <input type="radio" name="role" value="design">
-                            <div class="role-card-inner">
-                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-                                    <path d="M12 19l7-7 3 3-7 7-3-3z" />
-                                    <path d="M18 13l-1.5-7.5L2 2l3.5 14.5L13 18l5-5z" />
-                                    <path d="M2 2l7.586 7.586" />
-                                    <circle cx="11" cy="11" r="2" />
-                                </svg>
-                                <span>Design</span>
-                            </div>
-                            <div class="role-check">
-                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
-                                    <polyline points="20 6 9 17 4 12" />
-                                </svg>
-                            </div>
-                        </label>
-                        <label class="role-card" data-value="other">
-                            <input type="radio" name="role" value="other">
-                            <div class="role-card-inner">
-                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-                                    <path d="M12 2l2.4 7.2L22 12l-7.6 2.8L12 22l-2.4-7.2L2 12l7.6-2.8L12 2z" />
-                                </svg>
-                                <span>Other</span>
-                            </div>
-                            <div class="role-check">
-                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
-                                    <polyline points="20 6 9 17 4 12" />
-                                </svg>
-                            </div>
-                        </label>
-                    </div>
-
-                    <div class="form-grid">
-                        <div class="form-field">
-                            <label for="name">Name</label>
-                            <input type="text" id="name" name="name" placeholder="What should we call you?" required>
-                        </div>
-                        <div class="form-field">
-                            <label for="email">Email</label>
-                            <input type="email" id="email" name="email" placeholder="your@email.com" required>
-                        </div>
-                    </div>
-
-                    <div class="form-grid">
-                        <div class="form-field">
-                            <label for="instagram">Instagram</label>
-                            <input type="text" id="instagram" name="instagram" placeholder="@yourhandle" required>
-                        </div>
-                        <div class="form-field">
-                            <label for="telegram">Telegram</label>
-                            <input type="text" id="telegram" name="telegram" placeholder="@yourhandle" required>
-                        </div>
-                    </div>
-
-                    <div class="form-field">
-                        <label for="portfolio">Your work <span class="optional">(link to portfolio, GitHub, Behance,
-                                whatever)</span></label>
-                        <input type="url" id="portfolio" name="portfolio" placeholder="https://...">
-                    </div>
-
-                    <div class="form-field">
-                        <label for="message">Anything else? <span class="optional">(optional but we love reading
-                                these)</span></label>
-                        <textarea id="message" name="message" rows="4"
-                            placeholder="Why us? What gets you excited? Hot takes welcome."></textarea>
-                    </div>
-
-                    <button type="submit" class="submit-btn">
-                        <span>Send it</span>
-                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                            stroke-width="2">
-                            <path d="M22 2L11 13" />
-                            <path d="M22 2l-7 20-4-9-9-4 20-7z" />
-                        </svg>
-                    </button>
-
-                    <p class="form-note">We usually respond within 3 days. If you don't hear back, check spam or just
-                        ping us again.</p>
-                </form>
+                <!-- Tally Form Embed -->
+                <div class="tally-form-container">
+                    <iframe
+                        data-tally-src="https://tally.so/embed/dW0DRd?alignLeft=1&transparentBackground=1&dynamicHeight=1"
+                        loading="lazy" width="100%" height="500" frameborder="0" marginheight="0" marginwidth="0"
+                        title="Job Application">
+                    </iframe>
+                </div>
 
             </div>
         </section>
@@ -738,6 +610,9 @@
             <span>We'll be in touch soon.</span>
         </div>
     </div>
+
+    <!-- Tally Widget Script -->
+    <script>var d = document, w = "https://tally.so/widgets/embed.js", v = function () { "undefined" != typeof Tally ? Tally.loadEmbeds() : d.querySelectorAll("iframe[data-tally-src]:not([src])").forEach((function (e) { e.src = e.dataset.tallySrc })) }; if ("undefined" != typeof Tally) v(); else if (d.querySelector('script[src="' + w + '"]') == null) { var s = d.createElement("script"); s.src = w; s.onload = v; s.onerror = v; d.body.appendChild(s); }</script>
 
     <script src="/careers/script.js"></script>
 </body>
