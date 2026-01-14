@@ -628,62 +628,36 @@
                     <p class="form-note">We usually respond within 3 days. If you don't hear back, check spam or just
                         ping us again.</p>
                 </form>
-                
-/* ========================================
-   CONTACT ALTERNATIVES
-   ======================================== */
-.contact-alt {
-    margin-top: 32px;
-    padding-top: 28px;
-    border-top: 1px solid var(--warm-200);
-    text-align: center;
-}
-
-.contact-alt-title {
-    font-size: 0.9rem;
-    color: var(--text-muted);
-    margin-bottom: 16px;
-}
-
-.contact-methods {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-}
-
-.contact-method {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    gap: 10px;
-    padding: 12px 16px;
-    background: var(--warm-100);
-    border-radius: var(--radius-sm);
-    color: var(--text-soft);
-    text-decoration: none;
-    font-size: 0.9rem;
-    transition: all var(--transition);
-}
-
-.contact-method:hover {
-    background: var(--accent-pale);
-    color: var(--accent);
-}
-
-.contact-method svg {
-    width: 18px;
-    height: 18px;
-    flex-shrink: 0;
-}
-
-@media (min-width: 540px) {
-    .contact-methods {
-        flex-direction: row;
-        flex-wrap: wrap;
-        justify-content: center;
-    }
-}
-
+<div class="contact-alt">
+                    <p class="contact-alt-title">Prefer to reach out directly?</p>
+                    <div class="contact-methods">
+                        <a href="mailto:contactmarktist@proton.me" class="contact-method">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                                <rect x="2" y="4" width="20" height="16" rx="2" />
+                                <path d="M22 6l-10 7L2 6" />
+                            </svg>
+                            <span>contactmarktist@proton.me</span>
+                        </a>
+                        <a href="https://www.instagram.com/___lounis___?igsh=MTE1M2FxdXd5M3pvbQ==" target="_blank"
+                            rel="noopener" class="contact-method">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                                <rect x="2" y="2" width="20" height="20" rx="5" />
+                                <circle cx="12" cy="12" r="4" />
+                                <circle cx="18" cy="6" r="1.5" fill="currentColor" />
+                            </svg>
+                            <span>@___lounis___</span>
+                        </a>
+                        <a href="https://www.instagram.com/abdou.sdl?igsh=MXE4MXFpYjllYWh4YQ==" target="_blank"
+                            rel="noopener" class="contact-method">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                                <rect x="2" y="2" width="20" height="20" rx="5" />
+                                <circle cx="12" cy="12" r="4" />
+                                <circle cx="18" cy="6" r="1.5" fill="currentColor" />
+                            </svg>
+                            <span>@abdou.sdl</span>
+                        </a>
+                    </div>
+                </div>
             </div>
         </section>
     </main>
