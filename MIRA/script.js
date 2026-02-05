@@ -246,7 +246,7 @@ async function sendToOpenRouter(userMessage) {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
-                model: 'mistralai/mistral-small-3.1-24b-instruct:free',
+                model: 'nvidia/nemotron-3-nano-30b-a3b:free',
                 messages: window.chatHistory
             })
         });
@@ -404,6 +404,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }, { once: true });
     }
 });
+
 
 
 
