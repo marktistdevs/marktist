@@ -1,0 +1,572 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Marktist Resources</title>
+    <!-- Phosphor Icons -->
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    <!-- Confetti Library -->
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+    <style>
+        :root {
+            --bg: #f8f9fb;
+            --text: #1a1b1e;
+            --subtext: #6b7280;
+            --accent: #3b82f6;
+            --card-bg: #ffffff;
+            --card-border: rgba(0, 0, 0, 0.04);
+            --font: 'Inter Tight', system-ui, -apple-system, sans-serif;
+            --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+            --ease-elastic: cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            --shimmer-color: rgba(255, 255, 255, 0.4);
+        }
+
+        @import url('https://fonts.googleapis.com/css2?family=Inter+Tight:wght@500;600;700;800&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        body {
+            background-color: var(--bg);
+            color: var(--text);
+            font-family: var(--font);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+            padding: 40px 20px;
+            -webkit-font-smoothing: antialiased;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* --- Ambient Background --- */
+        .ambient {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -2;
+            overflow: hidden;
+            pointer-events: none;
+        }
+
+        .orb {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(100px);
+            opacity: 0.15;
+            animation: drift 20s infinite alternate ease-in-out;
+        }
+
+        .orb-1 {
+            top: -10%;
+            left: -10%;
+            width: 60vw;
+            height: 60vw;
+            background: radial-gradient(circle, #3b82f6, transparent);
+            animation-duration: 25s;
+        }
+
+        .orb-2 {
+            bottom: -10%;
+            right: -10%;
+            width: 50vw;
+            height: 50vw;
+            background: radial-gradient(circle, #a78bfa, transparent);
+            animation-duration: 30s;
+        }
+
+        @keyframes drift {
+            0% {
+                transform: translate(0, 0) scale(1) rotate(0deg);
+            }
+
+            100% {
+                transform: translate(10vw, 10vh) scale(1.1) rotate(10deg);
+            }
+        }
+
+        /* Mouse Glow */
+        .mouse-glow {
+            position: fixed;
+            width: 400px;
+            height: 400px;
+            background: radial-gradient(circle, rgba(59, 130, 246, 0.1) 0%, transparent 70%);
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: -1;
+            transform: translate(-50%, -50%);
+            transition: opacity 0.5s ease;
+            opacity: 0;
+        }
+
+        body:hover .mouse-glow {
+            opacity: 1;
+        }
+
+        /* --- Profile Section --- */
+        .profile {
+            text-align: center;
+            margin-bottom: 32px;
+            animation: springIn 1.2s var(--ease-elastic) forwards;
+            perspective: 1000px;
+        }
+
+        .avatar-wrap {
+            width: 110px;
+            height: 110px;
+            margin: 0 auto 16px;
+            border-radius: 50%;
+            padding: 4px;
+            background: #fff;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.08);
+            position: relative;
+            animation: breath 4s infinite ease-in-out;
+            transition: transform 0.2s ease-out;
+            transform-style: preserve-3d;
+        }
+
+        .avatar {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            object-fit: cover;
+            pointer-events: none;
+        }
+
+        .verified {
+            position: absolute;
+            bottom: 2px;
+            right: 2px;
+            background: var(--accent);
+            color: #fff;
+            width: 26px;
+            height: 26px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+            border: 2px solid #fff;
+            box-shadow: 0 4px 10px rgba(59, 130, 246, 0.3);
+            transform: translateZ(10px);
+        }
+
+        h1 {
+            font-size: 1.75rem;
+            font-weight: 800;
+            letter-spacing: -0.03em;
+            margin-bottom: 8px;
+            background: linear-gradient(to bottom, var(--text), #4b5563);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        @keyframes breath {
+
+            0%,
+            100% {
+                transform: translateY(0) scale(1);
+            }
+
+            50% {
+                transform: translateY(-6px) scale(1.02);
+            }
+        }
+
+        @keyframes springIn {
+            from {
+                opacity: 0;
+                transform: translateY(-40px) scale(0.9);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+
+        /* --- Links Container --- */
+        .links-stack {
+            width: 100%;
+            max-width: 440px;
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+            position: relative;
+        }
+
+        .link-item {
+            display: flex;
+            align-items: center;
+            padding: 20px 24px;
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: 24px;
+            text-decoration: none;
+            color: var(--text);
+            font-weight: 600;
+            font-size: 1.05rem;
+            box-shadow: 0 8px 20px -10px rgba(0, 0, 0, 0.05);
+            transition: all 0.4s var(--ease-elastic);
+            opacity: 0;
+            transform: translateY(30px);
+            animation: linkReveal 0.8s var(--ease-out-expo) forwards;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Unique Instagram Style */
+        .link-item.instagram {
+            border: 1px solid transparent;
+            background: linear-gradient(var(--card-bg), var(--card-bg)) padding-box,
+                linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888) border-box;
+            transition: all 0.4s var(--ease-elastic);
+        }
+
+        .link-item.instagram:hover {
+            box-shadow: 0 15px 30px -5px rgba(220, 39, 67, 0.2);
+            transform: translateY(-4px) scale(1.02);
+        }
+
+        .link-item.instagram i {
+            background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        /* Locked Link Style */
+        .link-item.locked {
+            opacity: 0.5;
+            filter: grayscale(1);
+            border-style: dashed;
+            cursor: not-allowed;
+            pointer-events: auto;
+            /* Allow click for feedback */
+        }
+
+        .link-item.locked .lock-icon {
+            margin-left: auto;
+            opacity: 0.5;
+        }
+
+        .link-item.locked .arrow {
+            display: none;
+        }
+
+        .link-item.locked:hover {
+            transform: translateX(4px);
+            /* Wiggle instead of lift */
+            background: #f1f1f1;
+        }
+
+        @keyframes wiggle {
+
+            0%,
+            100% {
+                transform: translateX(0);
+            }
+
+            25% {
+                transform: translateX(-4px);
+            }
+
+            75% {
+                transform: translateX(4px);
+            }
+        }
+
+        .link-item.wiggle {
+            animation: wiggle 0.3s ease;
+        }
+
+        .link-item:nth-child(1) {
+            animation-delay: 0.2s;
+        }
+
+        .link-item:nth-child(2) {
+            animation-delay: 0.3s;
+        }
+
+        .link-item:nth-child(3) {
+            animation-delay: 0.4s;
+        }
+
+        .link-item:nth-child(4) {
+            animation-delay: 0.5s;
+        }
+
+        .link-item:hover {
+            transform: translateY(-4px) scale(1.02);
+            box-shadow: 0 20px 30px -10px rgba(0, 0, 0, 0.08);
+            border-color: rgba(0, 0, 0, 0.08);
+        }
+
+        .link-item:active {
+            transform: scale(0.96);
+        }
+
+        .link-item.primary {
+            background: #000;
+            color: #fff;
+            border: none;
+            box-shadow: 0 15px 30px -5px rgba(0, 0, 0, 0.2);
+            --shimmer-color: rgba(255, 255, 255, 0.15);
+        }
+
+        .link-item.primary i {
+            color: #fff;
+        }
+
+        .link-item i {
+            font-size: 1.6rem;
+            margin-right: 18px;
+            color: var(--text);
+            transition: transform 0.3s var(--ease-elastic);
+        }
+
+        .link-item:hover i {
+            transform: scale(1.2);
+        }
+
+        .link-item .arrow {
+            margin-left: auto;
+            margin-right: 0;
+            font-size: 1.2rem;
+            opacity: 0.2;
+            transition: all 0.3s ease;
+        }
+
+        .link-item:hover .arrow {
+            transform: translateX(6px);
+            opacity: 1;
+            color: var(--accent);
+        }
+
+        @keyframes linkReveal {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* --- Success Loading --- */
+        .status-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(12px);
+            z-index: 100;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.4s ease;
+        }
+
+        .status-overlay.visible {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .spinner {
+            width: 48px;
+            height: 48px;
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid #000;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin-bottom: 20px;
+        }
+
+        @keyframes spin {
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+
+        footer {
+            margin-top: auto;
+            padding: 40px 0;
+            font-size: 0.75rem;
+            font-weight: 700;
+            color: var(--subtext);
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            opacity: 0.6;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="ambient">
+        <div class="orb orb-1"></div>
+        <div class="orb orb-2"></div>
+    </div>
+
+    <div class="mouse-glow" id="mouse-glow"></div>
+
+    <div class="profile" id="profile">
+        <div class="avatar-wrap" id="avatar-wrap">
+            <img src="./hero.webp" alt="Avatar" class="avatar">
+            <div class="verified"><i class="ph-bold ph-check"></i></div>
+        </div>
+        <h1>Marktist Resources</h1>
+
+    </div>
+
+    <main class="links-stack">
+        <a href="https://t.me/+DwdkYxGw-8FiNmE0" class="link-item primary" id="main-link">
+            <i class="ph-bold ph-telegram-logo"></i>
+            <span>Premium Channel</span>
+            <i class="ph-bold ph-caret-right arrow"></i>
+        </a>
+
+        <a href="https://instagram.com/marktist" target="_blank" class="link-item instagram">
+            <i class="ph-bold ph-instagram-logo"></i>
+            <span>Daily Updates</span>
+            <i class="ph-bold ph-caret-right arrow"></i>
+        </a>
+
+        <!-- Locked Links -->
+        <a href="#" class="link-item locked">
+            <i class="ph-bold ph-lock-simple"></i>
+            <span>Asset Gallery</span>
+            <i class="ph-bold ph-lock-simple lock-icon"></i>
+        </a>
+
+        <a href="#" class="link-item locked">
+            <i class="ph-bold ph-lock-simple"></i>
+            <span>Design Vault</span>
+            <i class="ph-bold ph-lock-simple lock-icon"></i>
+        </a>
+    </main>
+
+    <footer>Designed for the Visionary</footer>
+
+    <div class="status-overlay" id="overlay">
+        <div class="spinner"></div>
+        <p style="font-weight: 800; font-size: 1.1rem; letter-spacing: -0.01em;">Entering the Vault...</p>
+    </div>
+
+    <script>
+        const mainLink = document.getElementById('main-link');
+        const overlay = document.getElementById('overlay');
+        const glow = document.getElementById('mouse-glow');
+        const avatarWrap = document.getElementById('avatar-wrap');
+        const TG_URL = 'https://t.me/+DwdkYxGw-8FiNmE0';
+
+        /* 1. Mouse Glow Tracking */
+        document.addEventListener('mousemove', (e) => {
+            glow.style.left = e.clientX + 'px';
+            glow.style.top = e.clientY + 'px';
+
+            /* 2. Magnetic Avatar Effect */
+            const rect = avatarWrap.getBoundingClientRect();
+            const centerX = rect.left + rect.width / 2;
+            const centerY = rect.top + rect.height / 2;
+            const deltaX = (e.clientX - centerX) / 15;
+            const deltaY = (e.clientY - centerY) / 15;
+
+            avatarWrap.style.transform = `translate(${deltaX}px, ${deltaY}px) rotateY(${deltaX}deg) rotateX(${-deltaY}deg)`;
+        });
+
+        document.addEventListener('mouseleave', () => {
+            avatarWrap.style.transform = 'translate(0, 0) rotate(0)';
+        });
+
+        const instagramLink = document.querySelector('.link-item.instagram');
+
+        /* 3. Confetti and Link Logic */
+        const triggerNavigation = (url, overlayText, isInstagram = false) => {
+            // UI Feedback
+            overlay.querySelector('p').innerText = overlayText;
+            overlay.classList.add('visible');
+
+            // Celebration
+            if (isInstagram) {
+                // HIGH ENERGY BOMB
+                const colors = ['#f09433', '#e6683c', '#dc2743', '#cc2366', '#bc1888'];
+                const end = Date.now() + 800;
+
+                (function bomb() {
+                    confetti({
+                        particleCount: 40,
+                        angle: 60,
+                        spread: 80,
+                        origin: { x: 0, y: 0.7 },
+                        colors: colors,
+                        ticks: 200,
+                        gravity: 1.2
+                    });
+                    confetti({
+                        particleCount: 40,
+                        angle: 120,
+                        spread: 80,
+                        origin: { x: 1, y: 0.7 },
+                        colors: colors,
+                        ticks: 200,
+                        gravity: 1.2
+                    });
+                    if (Date.now() < end) requestAnimationFrame(bomb);
+                }());
+            } else {
+                // Standard Telegram Celebration
+                const colors = ['#3b82f6', '#ffffff', '#a78bfa'];
+                const end = Date.now() + 1000;
+                (function frame() {
+                    confetti({ particleCount: 3, angle: 60, spread: 55, origin: { x: 0 }, colors: colors });
+                    confetti({ particleCount: 3, angle: 120, spread: 55, origin: { x: 1 }, colors: colors });
+                    if (Date.now() < end) requestAnimationFrame(frame);
+                }());
+            }
+
+            // UX Delay
+            setTimeout(() => {
+                window.location.href = url;
+                setTimeout(() => {
+                    overlay.classList.remove('visible');
+                    overlay.querySelector('p').innerText = 'Entering the Vault...'; // Reset
+                }, 1000);
+            }, 1200);
+        };
+
+        mainLink.addEventListener('click', (e) => {
+            e.preventDefault();
+            triggerNavigation(TG_URL, 'Entering the Vault...');
+        });
+
+        instagramLink.addEventListener('click', (e) => {
+            e.preventDefault();
+            triggerNavigation(instagramLink.href, 'Opening Instagram...', true);
+        });
+
+        // Click placeholders & Locked feedback
+        document.querySelectorAll('.link-item:not(.primary):not(.instagram)').forEach(item => {
+            item.addEventListener('click', (e) => {
+                if (item.classList.contains('locked')) {
+                    e.preventDefault();
+                    item.classList.add('wiggle');
+                    setTimeout(() => item.classList.remove('wiggle'), 300);
+                } else if (item.getAttribute('href') === '#') {
+                    e.preventDefault();
+                }
+            });
+        });
+    </script>
+</body>
+
+</html>
