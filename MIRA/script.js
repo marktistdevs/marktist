@@ -246,7 +246,7 @@ async function sendToOpenRouter(userMessage) {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
-                model: 'nvidia/nemotron-3-nano-30b-a3b:free',
+                model: 'google/gemma-4-26b-a4b-it:free',
                 messages: window.chatHistory
             })
         });
