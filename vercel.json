@@ -1,0 +1,15 @@
+mira-api.js:155  POST https://marktist.vercel.app/api/chat 404 (Not Found)
+sendOpenRouterChat @ mira-api.js:155
+send @ M3:1866
+sendCustomText @ M3:1791
+clickSuggestion @ M3:1662
+onclick @ M3:2046
+mira-api.js:230 [MIRA OpenRouter Error]: Error: Erreur OpenRouter (404)
+    at Object.sendOpenRouterChat [as sendChat] (mira-api.js:175:13)
+    at async send (M3:1866:9)
+sendOpenRouterChat @ mira-api.js:230
+await in sendOpenRouterChat
+send @ M3:1866
+sendCustomText @ M3:1791
+clickSuggestion @ M3:1662
+onclick @ M3:2046
